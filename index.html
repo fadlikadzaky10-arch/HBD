@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Digital Gift ✨</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(76, 125, 255, .35), transparent 28%),
+        radial-gradient(circle at 85% 30%, rgba(125, 70, 255, .35), transparent 28%),
+        linear-gradient(135deg, #071a68, #103ed4 55%, #071a68);
+      color: white;
+      overflow-x: hidden;
+    }
+
+    .stars {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .star {
+      position: absolute;
+      width: 46px;
+      height: 46px;
+      background: #ffe65c;
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 95%,
+                         50% 72%, 21% 95%, 32% 57%, 2% 35%, 39% 35%);
+      opacity: .95;
+      filter: drop-shadow(0 0 12px rgba(255,255,255,.25));
+      animation: float 5s ease-in-out infinite;
+    }
+    .s1 { top: 12%; left: 10%; }
+    .s2 { top: 16%; right: 10%; background: #2738b9; animation-delay: .8s; }
+    .s3 { top: 46%; left: -2%; background: #ff4fc3; animation-delay: 1.6s; }
+    .s4 { bottom: 16%; right: 10%; animation-delay: 2.2s; }
+    @keyframes float {
+      50% { transform: translateY(-10px) rotate(4deg); }
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      width: min(920px, 92vw);
+      margin: auto;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 0;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 760px;
+      text-align: center;
+      padding: 30px 22px 34px;
+      background: rgba(8, 28, 115, .46);
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 28px;
+      box-shadow: 0 24px 70px rgba(0,0,0,.25);
+      backdrop-filter: blur(10px);
+    }
+
+    .tag {
+      display: inline-block;
+      background: #fff;
+      color: #111;
+      font-weight: 800;
+      padding: 9px 18px;
+      border-radius: 14px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(30px, 6vw, 62px);
+      line-height: 1.05;
+      margin-bottom: 10px;
+      text-shadow: 0 6px 18px rgba(0,0,0,.2);
+    }
+
+    .subtitle {
+      font-size: clamp(18px, 3vw, 28px);
+      opacity: .95;
+      margin-bottom: 30px;
+    }
+
+    .gift {
+      width: 150px;
+      height: 120px;
+      margin: 20px auto;
+      position: relative;
+      cursor: pointer;
+      transition: transform .25s ease;
+    }
+    .gift:hover { transform: translateY(-7px) scale(1.03); }
+
+    .lid {
+      position: absolute;
+      left: -8px;
+      right: -8px;
+      top: 0;
+      height: 30px;
+      border-radius: 9px;
+      background: #28a4e8;
+      box-shadow: 0 8px 14px rgba(0,0,0,.18);
+    }
+    .box {
+      position: absolute;
+      left: 5px;
+      right: 5px;
+      bottom: 0;
+      height: 88px;
+      border-radius: 10px;
+      background: linear-gradient(180deg, #28a4e8, #1f80ca);
+    }
+    .ribbon-v {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 62px;
+      width: 25px;
+      background: #f6d34a;
+      z-index: 2;
+    }
+    .ribbon-h {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 16px;
+      background: #f6d34a;
+      z-index: 3;
+      border-radius: 9px;
+    }
+
+    .hint {
+      margin: 8px 0 24px;
+      font-size: 16px;
+      opacity: .92;
+    }
+
+    .menu {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 18px;
+    }
+    .menu a {
+      text-decoration: none;
+      color: white;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.22);
+      padding: 12px 20px;
+      border-radius: 999px;
+      font-weight: 700;
+      transition: .2s;
+    }
+    .menu a:hover {
+      background: rgba(255,255,255,.22);
+      transform: translateY(-2px);
+    }
+
+    .primary {
+      display: inline-block;
+      padding: 14px 24px;
+      margin-top: 8px;
+      border-radius: 999px;
+      color: #0a227a;
+      background: #fff;
+      text-decoration: none;
+      font-weight: 800;
+      box-shadow: 0 10px 25px rgba(0,0,0,.18);
+    }
+    .primary:hover { transform: translateY(-2px); }
+
+    .footer { margin-top: 26px; font-size: 13px; opacity: .65; }
+  </style>
+</head>
+<body>
+  <div class="stars">
+    <span class="star s1"></span>
+    <span class="star s2"></span>
+    <span class="star s3"></span>
+    <span class="star s4"></span>
+  </div>
+
+  <main class="container">
+    <section class="card">
+      <div class="tag"> 🎁</div>
+      <h1>It's cheril day! ✨</h1>
+  
+
+      <p class="hint">a lil suprise for u!</p>
+      <a class="primary" href="utama.html">click here</a>
+
+    </section>
+  </main>
+</body>
+</html>
