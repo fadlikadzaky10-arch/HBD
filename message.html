@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Birthday Card</title>
+
+<!-- Font yang mirip tulisan tangan pada video -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --navy:#142b68;
+  --cream:#f3ecd9;
+  --ink:#28304a;
+  --white:#fffdf6;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{
+  font-family:"Cormorant Garamond",serif;
+  background:var(--navy);
+  color:var(--white);
+}
+
+/* =========================
+   HALAMAN 1 — VINYL
+   ========================= */
+#intro{
+  position:fixed;
+  inset:0;
+  z-index:20;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  background:
+    radial-gradient(circle at 50% 50%, #1c397d 0, #142b68 48%, #10245b 100%);
+  transition:opacity .8s ease, visibility .8s ease;
+}
+
+#intro.hide{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.intro-title{
+  margin:0 0 28px;
+  font-size:clamp(38px,6vw,64px);
+  letter-spacing:.5px;
+  text-shadow:0 3px 0 rgba(0,0,0,.15);
+}
+
+.player{
+  position:relative;
+  width:min(290px,62vw);
+  aspect-ratio:1;
+  cursor:pointer;
+  filter:drop-shadow(0 15px 15px rgba(0,0,0,.25));
+}
+
+.record{
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  background:
+    repeating-radial-gradient(circle at center,
+      #151515 0 7px,
+      #1e1e1e 8px 10px,
+      #101010 11px 15px);
+  border:8px solid #101010;
+  box-shadow:
+    inset 0 0 30px rgba(255,255,255,.04),
+    0 0 0 3px rgba(255,255,255,.04);
+  animation:spin 5s linear infinite;
+  animation-play-state:paused;
+}
+.player.playing .record{animation-play-state:running}
+
+.record:after{
+  content:"";
+  position:absolute;
+  inset:45%;
+  border-radius:50%;
+  background:#ece8dc;
+  box-shadow:0 0 0 7px #161616;
+}
+
+.play-btn{
+  position:absolute;
+  left:50%;top:50%;
+  transform:translate(-50%,-50%);
+  width:68px;height:68px;
+  border-radius:50%;
+  border:0;
+  background:#fffdf6;
+  color:#15285f;
+  font-size:27px;
+  display:grid;
+  place-items:center;
+  padding-left:6px;
+  z-index:2;
+  box-shadow:0 5px 15px rgba(0,0,0,.18);
+}
+
+.needle{
+  position:absolute;
+  width:100px;
+  height:8px;
+  border-radius:8px;
+  background:#f5f4ee;
+  right:-3px;
+  top:48px;
+  transform:rotate(32deg);
+  transform-origin:100% 50%;
+  z-index:3;
+  box-shadow:0 2px 4px rgba(0,0,0,.2);
+}
+.needle:after{
+  content:"";
+  position:absolute;
+  right:-5px;top:-4px;
+  width:16px;height:16px;
+  border-radius:3px;
+  background:#d9d9d2;
+}
+
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* =========================
+   HALAMAN 2
+   ========================= */
+#card{
+  position:fixed;
+  inset:0;
+  opacity:0;
+  transform:scale(1.02);
+  transition:opacity 1s ease, transform 1s ease;
+  background:
+    radial-gradient(circle at 10% 20%, rgba(255,255,255,.3), transparent 25%),
+    var(--cream);
+  color:var(--ink);
+}
+#card.show{
+  opacity:1;
+  transform:scale(1);
+}
+
+.content{
+  position:relative;
+  width:min(940px,94vw);
+  height:100%;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:clamp(35px,7vw,90px);
+  padding:30px;
+}
+
+/* Foto */
+.photo-wrap{
+  position:relative;
+  width:min(290px,34vw);
+  min-width:210px;
+  aspect-ratio: .67;
+  flex-shrink:0;
+  background:var(--navy);
+  padding:11px;
+  border-radius:4px;
+  box-shadow:0 13px 25px rgba(29,35,60,.18);
+  transform:rotate(0deg);
+}
+
+.photo-wrap img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  background:#ddd;
+}
+
+
+/* Bunga */
+.flower{
+  position:absolute;
+  top:-25px;
+  left:-45px;
+  width:90px;
+  height:90px;
+  z-index:3;
+  font-size:65px;
+  filter:drop-shadow(0 5px 3px rgba(0,0,0,.12));
+  transform:rotate(-12deg);
+}
+
+/* Kue */
+.cake{
+  position:absolute;
+  right:-32px;
+  bottom:20px;
+  width:75px;
+  height:55px;
+  z-index:4;
+}
+.cake .top{
+  position:absolute;
+  left:8px;top:6px;
+  width:59px;height:17px;
+  border-radius:50%;
+  background:#fffdf5;
+  border:3px solid #21428c;
+}
+.cake .body{
+  position:absolute;
+  left:10px;top:16px;
+  width:55px;height:30px;
+  border-radius:0 0 14px 14px;
+  background:#f5f0df;
+  border:3px solid #21428c;
+}
+.cake .cream{
+  position:absolute;
+  left:13px;top:20px;
+  width:49px;height:9px;
+  border-radius:50%;
+  border-bottom:3px solid #21428c;
+}
+.cake .candle{
+  position:absolute;
+  width:4px;height:14px;
+  top:-7px;
+  background:#21428c;
+  border-radius:3px;
+}
+.cake .flame{
+  position:absolute;
+  width:7px;height:9px;
+  top:-15px;
+  left:-1.5px;
+  border-radius:50% 50% 50% 0;
+  background:#d8aa4e;
+  transform:rotate(-45deg);
+}
+.c1{left:24px}.c2{left:35px}.c3{left:46px}
+
+/* Teks */
+.message{
+  width:min(510px,48vw);
+  min-width:300px;
+  font-family:Kalam,cursive;
+  font-size:clamp(16px,2vw,22px);
+  line-height:1.85;
+}
+
+.line{
+  opacity:0;
+  transform:translateY(12px);
+  margin:0 0 18px;
+}
+.line.visible{
+  animation:write .9s ease forwards;
+}
+@keyframes write{
+  to{opacity:1;transform:translateY(0)}
+}
+
+.line:first-child{
+  font-size:1.12em;
+  margin-bottom:28px;
+}
+
+/* Confetti */
+.confetti{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+}
+.bit{
+  position:absolute;
+  width:7px;
+  height:20px;
+  border-radius:3px;
+  opacity:.9;
+  animation:fall linear infinite;
+}
+@keyframes fall{
+  0%{transform:translate3d(0,-30px,0) rotate(0deg)}
+  100%{transform:translate3d(var(--drift),110vh,0) rotate(720deg)}
+}
+
+/* Tombol kecil */
+.controls{
+  position:fixed;
+  right:16px;
+  bottom:14px;
+  z-index:30;
+  display:flex;
+  gap:8px;
+}
+.controls button{
+  border:1px solid rgba(20,43,104,.2);
+  background:rgba(255,253,246,.85);
+  color:var(--navy);
+  border-radius:999px;
+  padding:8px 12px;
+  font-family:inherit;
+  cursor:pointer;
+  backdrop-filter:blur(5px);
+}
+.controls input{display:none}
+
+/* Mobile */
+@media(max-width:700px){
+  .content{
+    flex-direction:column;
+    gap:25px;
+    padding:22px 15px 60px;
+    overflow:auto;
+    justify-content:flex-start;
+    padding-top:55px;
+  }
+  .photo-wrap{
+    width:210px;
+    min-width:210px;
+    height:315px;
+  }
+  .message{
+    width:min(88vw,500px);
+    min-width:0;
+    font-size:17px;
+    line-height:1.7;
+  }
+  .line{margin-bottom:13px}
+  .flower{left:-38px;top:-28px;font-size:55px}
+  .cake{right:-25px;bottom:15px;transform:scale(.85)}
+}
+</style>
+</head>
+
+<body>
+
+<audio id="birthdayMusic" preload="auto">
+  <!-- Taruh file lagu di folder yang sama dengan HTML dan beri nama: lagu.mp3 -->
+  <source src="lagu.mp3" type="audio/mpeg">
+  Browser kamu tidak mendukung audio HTML5.
+</audio>
+
+
+<!-- =========================
+     INTRO
+     ========================= -->
+<section id="intro">
+  <h1 class="intro-title">Click Play!</h1>
+
+  <div class="player" id="player" aria-label="Play birthday card">
+    <div class="record"></div>
+    <div class="needle"></div>
+    <button class="play-btn" id="playBtn" aria-label="Play">▶</button>
+  </div>
+</section>
+
+<!-- =========================
+     CARD
+     ========================= -->
+<main id="card">
+  <div class="confetti" id="confetti"></div>
+
+  <div class="content">
+
+    <div class="photo-wrap" id="photoWrap">
+      <div class="flower">💐</div>
+
+      <!-- GANTI "foto.jpg" dengan nama file foto kamu.
+           Simpan foto di folder yang sama dengan HTML. -->
+      <img id="photo" src="foto.jpg" alt="Foto ulang tahun">
+
+      <div class="cake">
+        <div class="top"></div>
+        <div class="body"></div>
+        <div class="cream"></div>
+        <div class="candle c1"><div class="flame"></div></div>
+        <div class="candle c2"><div class="flame"></div></div>
+        <div class="candle c3"><div class="flame"></div></div>
+      </div>
+    </div>
+
+    <div class="message">
+      <!-- GANTI TEKS DI BAWAH SESUAI KEINGINAN -->
+      <p class="line">Happy Birthday!!</p>
+
+      <p class="line">
+       Thank yourself for saving you
+      </p>
+
+      <p class="line">
+         This year may have felt heavier than the last, as stepping into life after graduation means taking things far more seriously. But remember how deeply capable and strong you are. May this new chapter bring you clarity, quiet confidence, and the brightness you so truly deserve.
+
+      </p>
+
+      <p class="line">
+        May all your dreams come true
+      </p>
+
+      <p class="line">
+        Stay happy, stay healthy, and keep being you. 
+      </p>
+    </div>
+
+  </div>
+</main>
+
+<!-- Kontrol -->
+<div class="controls">
+  <button id="restartButton">↻ Ulangi</button>
+</div>
+
+<script>
+/* ==========================================
+   CONFETTI
+   ========================================== */
+const confetti = document.getElementById("confetti");
+
+for(let i=0;i<55;i++){
+  const bit = document.createElement("span");
+  bit.className = "bit";
+
+  // Warna diatur lewat CSS variable supaya tetap mirip video
+  const colors = ["#263f91","#ffffff","#d7ccb3","#1b3375"];
+  bit.style.background = colors[i % colors.length];
+
+  bit.style.left = Math.random()*100 + "%";
+  bit.style.top = (-Math.random()*100) + "%";
+  bit.style.animationDuration = (5 + Math.random()*7) + "s";
+  bit.style.animationDelay = (-Math.random()*10) + "s";
+  bit.style.setProperty("--drift",(Math.random()*180-90)+"px");
+  bit.style.transform = `rotate(${Math.random()*360}deg)`;
+
+  confetti.appendChild(bit);
+}
+
+/* ==========================================
+   PLAY
+   ========================================== */
+const intro = document.getElementById("intro");
+const card = document.getElementById("card");
+const player = document.getElementById("player");
+const playBtn = document.getElementById("playBtn");
+const lines = document.querySelectorAll(".line");
+
+const birthdayMusic = document.getElementById("birthdayMusic");
+
+function startCard(){
+  player.classList.add("playing");
+  playBtn.textContent = "✓";
+
+  // Lagu mulai tepat ketika vinyl diklik.
+  // Browser mengizinkan autoplay karena play() dipanggil dari klik pengguna.
+  birthdayMusic.currentTime = 0;
+  birthdayMusic.play().catch((error) => {
+    console.log("Audio tidak dapat diputar:", error);
+  });
+
+  setTimeout(()=>{
+    intro.classList.add("hide");
+    card.classList.add("show");
+
+    // Teks muncul satu per satu
+    lines.forEach((line,index)=>{
+      setTimeout(()=>{
+        line.classList.add("visible");
+      }, 650 + index*1150);
+    });
+  },700);
+}
+
+player.addEventListener("click", startCard);
+playBtn.addEventListener("click", (e)=>{
+  e.stopPropagation();
+  startCard();
+});
+
+/* ==========================================
+   ULANGI
+   ========================================== */
+document.getElementById("restartButton").addEventListener("click",()=>{
+  location.reload();
+});
+</script>
+
+</body>
+</html>
